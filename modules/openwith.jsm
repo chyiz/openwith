@@ -451,6 +451,8 @@ let OpenWithCore = {
 			} else {
 				process.run(false, params, params.length);
 			}
+
+			OpenWithTelemetry.log(OpenWithTelemetry.browserOpened);
 		} catch (e) {
 			Cu.reportError(e);
 		}
@@ -706,6 +708,8 @@ XPCOMUtils.defineLazyGetter(OpenWithCore, 'strings', function() {
 	return Services.strings.createBundle('chrome://openwith/locale/openwith.properties');
 });
 XPCOMUtils.defineLazyServiceGetter(this, 'idleService', '@mozilla.org/widget/idleservice;1', 'nsIIdleService');
+
+XPCOMUtils.defineLazyModuleGetter(this, 'OpenWithTelemetry', 'resource://openwith/telemetry.jsm');
 
 if (Services.appinfo.name == 'Firefox') {
 	Services.scriptloader.loadSubScript('resource://openwith/widgets.js');
